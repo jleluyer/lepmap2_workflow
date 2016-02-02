@@ -1,6 +1,6 @@
 #!/bin/bash
 #$ -N log.lepmap2_SeparateChrom
-#$ -M jeremy.le-luyer.1@ulaval.ca
+#$ -M userID@ulaval.ca
 #$ -m beas
 #$ -pe smp 1
 #$ -l h_vmem=20G
@@ -17,13 +17,11 @@ Mprior="0.01"
 infoM=0123
 #LOD=7
 #for LOD in $(cat list_LOD)
-for LOD in 20 22
-do
 java -cp $DIR SeparateChromosomes sizeLimit=22 data="$INPUT".linkage lodLimit="$LOD" malePrior="$Mprior" >map.lod"$LOD".NoinfoMask24.sizeLimit22.txt
-done
 
 
-: ' 
+
+: '
 
 usage: java SeparateChromosomes [options] data=file [file2 file3...]
 options:

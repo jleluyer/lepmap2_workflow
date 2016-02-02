@@ -1,6 +1,6 @@
 #!/bin/bash
 #$ -N log.lepmap2_JoinSingle
-#$ -M jeremy.le-luyer.1@ulaval.ca
+#$ -M userID@ulaval.ca
 #$ -m beas
 #$ -pe smp 1
 #$ -l h_vmem=20G
@@ -16,10 +16,7 @@ DIR="/home/jelel8/Software/LepMap2/bin/"
 MAP="map.lod22.NoinfoMask24.sizeLimit22.txt"
 infoMask=2
 
-for LOD in 1 2 3 4 5 6 7 8 9 10 11 12
-do
 java -cp $DIR JoinSingles $MAP malePrior=0.01 data="$INPUT".linkage lodLimit="$LOD" >map.Lod22.JsLod"$LOD"_js.sizeLimit22.txt
-done
 
 : ' 
 usage: java JoinSingles chromosome_map_file [options] data=file1 [file2 file3...]

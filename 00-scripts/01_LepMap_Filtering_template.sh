@@ -1,6 +1,6 @@
 #!/bin/bash
 #$ -N log.lepmap2_filtering
-#$ -M jeremy.le-luyer.1@ulaval.ca
+#$ -M userID@ulaval.ca
 #$ -m beas
 #$ -pe smp 1
 #$ -l h_vmem=20G

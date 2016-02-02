@@ -1,6 +1,6 @@
 #!/bin/bash
 #$ -N log.lepmap2_OrderMarkers
-#$ -M jeremy.le-luyer.1@ulaval.ca
+#$ -M userID@ulaval.ca
 #$ -m beas
 #$ -pe smp 16
 #$ -l h_vmem=50G
@@ -15,11 +15,8 @@ MAP="map.Lod22.JsLod10_js.sizeLimit22.txt"
 RECOMB="0.01 0.05"
 CPU=16
 
-for i in $(cat list_chr)
-do
 #Create Maps
 java -cp $DIR OrderMarkers map=$MAP informativeMask=223 maxError=0.1 initRecombination="$RECOMB" data="$INPUT".linkage polishWindow=100 filterWindow=10 numThreads="$CPU" chromosome=$i > order.NoSex.Maxerror0.1.Mprior0.01.Sizelim22.infoMask23.$i.txt
-done 
 
 #evaluate order and compute LOD score pair-wise
 #java -cp $DIR OrderMarkers evaluateOrder=ordeNoSex.txt data="$INPUT".linkage >ordeNoSex_evaluate.txt
