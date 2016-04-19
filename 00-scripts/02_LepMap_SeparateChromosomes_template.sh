@@ -27,7 +27,7 @@ sl="sizeLimit=1"
 for value in {1..30}
 do
 	lod=$(echo lodLimit="$value")
-java -cp $DIR SeparateChromosomes $file $sl $los $mp $ap $t $tml $R $im $f > 03-output/map_lod"$value"_sizeLimit$sl.txt
+java -cp $DIR SeparateChromosomes $file $sl $lod $mp $ap $t $tml $R $im $f > 03-output/map_lod"$value"_sizeLimit$sl.txt
 done
 
 #optimal lod and sl
