@@ -8,7 +8,9 @@ lep-MAP2 workflow for building genetic linkage maps
 
 ##lep-MAP2 repository
 
-[Lep-MAP2](https://sourceforge.net/projects/lepmap2/) P. Rastas
+[Lep-MAP2](https://sourceforge.net/projects/lepmap2/)
+
+P. Rastas, F.C.F. Calboli, B. Guo, T. Shikano & J. Merilä (2015). Construction of Ultradense Linkage Maps with Lep-MAP2: Stickleback F2 Recombinant Crosses as an Example. [doi: 10.1093/gbe/evv250](http://gbe.oxfordjournals.org/content/8/1/78)
 
 **workflow in progress**
 
