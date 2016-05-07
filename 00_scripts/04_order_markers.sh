@@ -10,9 +10,26 @@
 
 #usage java OrderMarkers [options] data=file1 [file2 file3...]
 
+#variables
+TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
+SCRIPT=$0
+NAME=$(basename $0)
+LOG_FOLDER="98_log_files"
+cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 DIR="/home/jelel8/Software/LepMap2/bin/"
-file="03-output/map_js.txt"
-map="03-output/map.Lod22.JsLod10_js.sizeLimit22.txt"
+
+for i in $(ls 02_data/*linkage|sed 's/.linkage//g')
+do
+base=$(basename $i)
+
+file="03-output/mapi_"$base"_js.txt"
+js_lod=10
+sc_lod=22
+sc_sl=11
+
+
+
+map="03_output/map.Lod_"$sc_lod"_JsLod_"$js_lod"_js.sizeLimit_"$sl".txt"
 #rem="removeMarkers=m1 [m2 ...]"		# Remove markers m1 m2 ... from further analysis [not set]
 im="informativeMask=23"				# Use only markers with informative father (1), mother(2), both patrents(3) or neither parent(0) [0123]
 #f="families=f1 [f2 ...]"	  		# Use only families f1 f2 ... [not set]
@@ -45,6 +62,7 @@ cpu="numThreads=16"        			# CPUs
 #Create Maps
 java -cp $DIR OrderMarkers $map $rem $im $f $nmi $chr $io $red $eo $cls $maxd $maxe $mine $uk $pw $fw $ircb $ierr $lep $lrpP $lrp $lrpM $sa $a $mc $mcl $hcl $cpu $file >03-output/ordered_markers.txt
 
+done 2>&1 | tee 98_log_files/"$TIMESTAMP"_ordermarkers.log
 #evaluate order and compute LOD score pair-wise
 #java -cp $DIR OrderMarkers evaluateOrder=ordeNoSex.txt data="$INPUT".linkage >ordeNoSex_evaluate.txt
 

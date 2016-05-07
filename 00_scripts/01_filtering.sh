@@ -9,15 +9,23 @@
 #$ -S /bin/bash
 
 
-#usage: java Filtering [options] data=file1 [file2 ...] >file1_filtered.linkage
+TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
 
+# Copy script as it was run
+SCRIPT=$0
+NAME=$(basename $0)
+LOG_FOLDER="98_log_files"
+cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 
-cd /home/jelel8/LepMap2_workflow
+#java Filtering [options] data=file1 [file2 ...] >file1_filtered.linkage
 
-
-#Loads input genotypes in LINKAGE Pre-makeped format
+#variables
+PWD="__PWD__"
+cd $PWD
 DIR="/home/jelel8/Software/LepMap2/bin/"
-file="data=02-raw_data/file.linkage"			# Loads input genotypes in LINKAGE Pre-makeped format
+base=__BASE__
+#Loads input genotypes in LINKAGE Pre-makeped format
+file="data=02_data/"$base".linkage"			# Loads input genotypes in LINKAGE Pre-makeped format
 #e="epsilon=NUM"             				# Probability of a haplotype error [0.01], used to model Mendel errors
 d="dataTolerance=0.01"      				# P-value limit for segregation distortion [0.01]
 #rm="removeMarkers=m1 [m2 ...]" 			# Remove markers m1 m2 ... from further analysis [not set]
@@ -32,5 +40,5 @@ d="dataTolerance=0.01"      				# P-value limit for segregation distortion [0.01
 #ka="keepAlleles=1" 					# Keep the same alleles in the data as were in the input
 
 
-java -cp $DIR Filtering $file $e $d $rm $hwe $ml $mli $imf $fis $nil $nnil $maf $ka >03-output/map_trimmed_f.linkage
+java -cp $DIR Filtering $file $e $d $rm $hwe $ml $mli $imf $fis $nil $nnil $maf $ka >03_output/"$base"_trimmed_f.linkage 
 
