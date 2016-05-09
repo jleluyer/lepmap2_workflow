@@ -1,6 +1,6 @@
 #!/bin/bash
-#$ -N log.sep_chr
-#$ -M userID
+#$ -N log_sep_chr_validation
+#$ -M jeremy.le-luyer.1@ulaval.ca
 #$ -m beas
 #$ -pe smp 1
 #$ -l h_vmem=20G
@@ -22,7 +22,7 @@ for i in $(ls 02_data/*linkage|sed 's/.linkage//g')
 do
 base=$(basename $i)
 
-file="data=03_output/map_"$base"_trimmed_f.linkage
+file="data=03_output/"$base"_trimmed_f.linkage"
 
 mp="malePrior=0.01"       		#Uniform prior for recombination fraction for (maternal) paternal haplotypes [0.05]
 #ap="(fe)malePrior=A B C"	     	#Affine prior for recombination fraction for (maternal) paternal haplotypes [not set]
@@ -32,8 +32,7 @@ mp="malePrior=0.01"       		#Uniform prior for recombination fraction for (mater
 im="informativeMask=23"     		#Use only markers with informative father (1), mother(2), both patrents(3) or neither parent(0) [0123]
 #f="families=f1 [f2 ...]"    		#Use only families f1 f2 ... [not set]
 sl="sizeLimit=1"
-#lod="lodLimit=12"
-SL="$(echo $sl|sed 's/sizeLimit=//g')
+SL="$(echo $sl|sed 's/sizeLimit=//g')"
 
 #Testing various lod values
 	for value in {1..30}
@@ -41,9 +40,6 @@ SL="$(echo $sl|sed 's/sizeLimit=//g')
 	lod=$(echo lodLimit="$value")
 	java -cp $DIR SeparateChromosomes $file $sl $lod $mp $ap $t $tml $R $im $f > 03_output/map_"$base"_lod"$value"_sizeLimit"$SL".txt
 	done
-
-#optimal lod and sl
-#java -cp $DIR SeparateChromosomes $file $sl $lod $mp $ap $t $tml $R $im $f > 03_output/map_lod"$value"_sl"$SL".txt
 
 done 2>&1 | tee 98_log_files/"$TIMESTAMP"_separatechromosomes.log
 
