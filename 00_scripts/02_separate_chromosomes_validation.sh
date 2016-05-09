@@ -1,6 +1,6 @@
 #!/bin/bash
 #$ -N log_sep_chr_validation
-#$ -M jeremy.le-luyer.1@ulaval.ca
+#$ -M userID
 #$ -m beas
 #$ -pe smp 1
 #$ -l h_vmem=20G
@@ -16,7 +16,7 @@ LOG_FOLDER="98_log_files"
 cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 
 #usage: java SeparateChromosomes [options] data=file [file2 file3...]
-DIR="/home/jelel8/Software/LepMap2/bin/"
+DIR="/home/jelel8/Software/LepMap2/v2016-04-27/bin/"
 
 for i in $(ls 02_data/*linkage|sed 's/.linkage//g')
 do

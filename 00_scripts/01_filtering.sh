@@ -1,6 +1,6 @@
 #!/bin/bash
 #$ -N log_filtering
-#$ -M jeremy.le-luyer.1@ulaval.ca
+#$ -M userID
 #$ -m beas
 #$ -pe smp 1
 #$ -l h_vmem=20G
@@ -20,7 +20,7 @@ cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 #java Filtering [options] data=file1 [file2 ...] >file1_filtered.linkage
 
 #variables
-DIR="/home/jelel8/Software/LepMap2/bin/"
+DIR="/home/jelel8/Software/LepMap2/v2016-04-27/bin/"
 
 for i in $(ls 02_data/*.linkage|sed 's/.linkage//g')
 do
