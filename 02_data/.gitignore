@@ -4,3 +4,5 @@
 *.loc
 *.linkage
 *.txt
+*.tsv
+*.markernames

@@ -1,6 +1,6 @@
 #!/bin/bash
-#$ -N log.lepmap2_filtering
-#$ -M userID@ulaval.ca
+#$ -N log_filtering
+#$ -M jeremy.le-luyer.1@ulaval.ca
 #$ -m beas
 #$ -pe smp 1
 #$ -l h_vmem=20G
@@ -20,14 +20,17 @@ cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 #java Filtering [options] data=file1 [file2 ...] >file1_filtered.linkage
 
 #variables
-PWD="__PWD__"
-cd $PWD
 DIR="/home/jelel8/Software/LepMap2/bin/"
-base=__BASE__
+
+for i in $(ls 02_data/*.linkage|sed 's/.linkage//g')
+do
+base=$(basename $i)
+
+
 #Loads input genotypes in LINKAGE Pre-makeped format
 file="data=02_data/"$base".linkage"			# Loads input genotypes in LINKAGE Pre-makeped format
 #e="epsilon=NUM"             				# Probability of a haplotype error [0.01], used to model Mendel errors
-d="dataTolerance=0.01"      				# P-value limit for segregation distortion [0.01]
+d="dataTolerance=0.001"      				# P-value limit for segregation distortion [0.01]
 #rm="removeMarkers=m1 [m2 ...]" 			# Remove markers m1 m2 ... from further analysis [not set]
 #hwe="outputHWE=1"             				# Output p-values of segregation distortion (to error stream)
 #ml="missingLimit=NUM"        				# Filter out markers with > NUM missing values in each family [inf]
@@ -42,3 +45,4 @@ d="dataTolerance=0.01"      				# P-value limit for segregation distortion [0.01
 
 java -cp $DIR Filtering $file $e $d $rm $hwe $ml $mli $imf $fis $nil $nnil $maf $ka >03_output/"$base"_trimmed_f.linkage 
 
+done 2>&1 | tee 98_log_files/"$TIMESTAMP"_filtering.log
