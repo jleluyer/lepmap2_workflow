@@ -18,6 +18,9 @@ LOG_FOLDER="98_log_files"
 cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 DIR="/home/jelel8/Software/LepMap2/bin/"
 
+#move to present working dir
+cd $PBS_O_WORKDIR
+
 for i in $(ls 02_data/*linkage|sed 's/.linkage//g')
 do
 base=$(basename $i)
