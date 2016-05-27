@@ -4,35 +4,37 @@ lep-MAP2 workflow for building genetic linkage maps
 
 ## Documentation
 
-### Place .loc file in 02_data/
+### 1. Import data
 
-### Prepare the data
+mv file.loc to **02_data/*
+
+### 2 .Prepare the data
 
 ```
 00_scripts/utilities/joinMap_to_LepMap.sh 02_data/*.loc
 ```
 
-### launch filtering step
+### 3. launch filtering step
 
 ```
 ./00_scripts/01_filtering.sh
 ```
 
-### launch validation for LG segregation
+### 4. launch validation for LG segregation
 
 ```
 ./00_scripts/02_separate_chromosomes_validation.sh
 ```
 
-### Evaluate LOD parameter
+### 5. Evaluate LOD parameter
 
 ```
 ./00_scripts/utilities/count_nb_markers_lgs.sh
 ```
 
-### Launch sep LG final
+### 6. Launch sep LG final
 
-**first change the values for LOD and Size limit**
+**first change the values for _LOD_ and _Size limit_**
 
 ```
 ./00_scripts/03_separate_chromosomes.sh
