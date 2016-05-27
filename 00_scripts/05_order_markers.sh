@@ -1,12 +1,16 @@
 #!/bin/bash
-#$ -N log.lepmap2_OrderMarkers
-#$ -M userID@ulaval.ca
-#$ -m beas
-#$ -pe smp 16
-#$ -l h_vmem=50G
-#$ -l h_rt=150:00:00
-#$ -cwd
-#$ -S /bin/bash
+
+#SBATCH -D ./ 
+#SBATCH --job-name="order"
+#SBATCH -o log-order.out
+#SBATCH -c 4
+#SBATCH -p ibismini
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=type_your_mail@ulaval.ca
+#SBATCH --time=1-00:00
+#SBATCH --mem=50000
+
+cd $SLURM_SUBMIT_DIR
 
 #usage java OrderMarkers [options] data=file1 [file2 file3...]
 
@@ -16,25 +20,23 @@ SCRIPT=$0
 NAME=$(basename $0)
 LOG_FOLDER="98_log_files"
 cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
-DIR="/home/jelel8/Software/LepMap2/bin/"
+DIR="/home/jelel8/Software/LepMap2/v2016-04-27/bin/"
 
-#move to present working dir
-cd $PBS_O_WORKDIR
 
 for i in $(ls 02_data/*linkage|sed 's/.linkage//g')
 do
 base=$(basename $i)
 
-file="03-output/mapi_"$base"_js.txt"
+file="data=file.linkage"
 js_lod=10
 sc_lod=22
 sc_sl=11
 
 
 
-map="03_output/map.Lod_"$sc_lod"_JsLod_"$js_lod"_js.sizeLimit_"$sl".txt"
+map="map=03_output/map_js.txt"
 #rem="removeMarkers=m1 [m2 ...]"		# Remove markers m1 m2 ... from further analysis [not set]
-im="informativeMask=23"				# Use only markers with informative father (1), mother(2), both patrents(3) or neither parent(0) [0123]
+#im="informativeMask=23"				# Use only markers with informative father (1), mother(2), both patrents(3) or neither parent(0) [0123]
 #f="families=f1 [f2 ...]"	  		# Use only families f1 f2 ... [not set]
 #nmi="numMergeIterations=NUM"			# How many iterations are performed [6]
 #chr="chromosome=NUM"         			# Order only one chromosome [not set]
@@ -49,7 +51,7 @@ maxe="maxError=0.01"	       		   	# Maximum allowed haplotype error probability 
 pw="polishWindow=100"	      			# Uses only a window of NUM markers in the polishing step to obtain speedup.
 fw="filterWindow=10"       			# Uses about 4 x NUM markers to decided whether it is needed to evaluate the full likelihood for all markers,to obtain speedup.
 						# Only activated with more than 32 x NUM markers.
-ircb="initRecombination=0.01 0.05"   		# Initial recombination probability paternal [and maternal] [0.05, NUM2=NUM]
+#ircb="initRecombination=0.01 0.05"   		# Initial recombination probability paternal [and maternal] [0.05, NUM2=NUM]
 #ierr="initError=NUM"           		# Initial haplotype error probability [0.01]
 #lep="learnErrorParameters=0"			# Disable error parameter learning [not set]
 #lrpP="learnRecombinationParameters=0 1"	# Disable paternal recombination rate learning [not set]
@@ -60,10 +62,10 @@ ircb="initRecombination=0.01 0.05"   		# Initial recombination probability pater
 #mc="markerClusters=file"			# Load duplicated markers from a file, file should contain two columns, marker name and cluster ID
 #mcl="missingClusteringLimit=NUM"		# Allow missing rate of NUM when deciding whether two markers are duplicates [0.0] (exprimental)
 #hcl="hammingClusteringLimit=NUM"		# Allow hamming difference rate of NUM when deciding whether two markers are duplicates [0.0] (exprimental)
-cpu="numThreads=16"        			# CPUs
+cpu="numThreads=4"        			# CPUs
 
 #Create Maps
-java -cp $DIR OrderMarkers $map $rem $im $f $nmi $chr $io $red $eo $cls $maxd $maxe $mine $uk $pw $fw $ircb $ierr $lep $lrpP $lrp $lrpM $sa $a $mc $mcl $hcl $cpu $file >03-output/ordered_markers.txt
+java -cp $DIR OrderMarkers $map $rem $im $f $nmi $chr $io $red $eo $cls $maxd $maxe $mine $uk $pw $fw $ircb $ierr $lep $lrpP $lrp $lrpM $sa $a $mc $mcl $hcl $cpu $file >03_output/ordered_markers.txt
 
 done 2>&1 | tee 98_log_files/"$TIMESTAMP"_ordermarkers.log
 #evaluate order and compute LOD score pair-wise
