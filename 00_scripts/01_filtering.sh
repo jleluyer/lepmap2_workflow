@@ -1,12 +1,16 @@
 #!/bin/bash
-#$ -N log_filtering
-#$ -M userID
-#$ -m beas
-#$ -pe smp 1
-#$ -l h_vmem=20G
-#$ -l h_rt=00:20:00
-#$ -cwd
-#$ -S /bin/bash
+
+#SBATCH -D ./ 
+#SBATCH --job-name="filter"
+#SBATCH -o log-filter.out
+#SBATCH -c 1
+#SBATCH -p ibismini
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=type_your_mail@ulaval.ca
+#SBATCH --time=0-20:00
+#SBATCH --mem=50000
+
+cd $SLURM_SUBMIT_DIR
 
 
 TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
