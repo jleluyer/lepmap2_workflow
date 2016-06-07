@@ -35,7 +35,7 @@ sbatch 00_scripts/02_separate_chromosomes_validation.sh
 ```
 This step will format the output from the separate chromosome module to display the number of marker by LG. It is usefull to select a specific LOD  and size limit tresholds
 
-### 6. Launch sep LG final
+### 6. Separate chromosome module
 
 **first change the values for _LOD_ and _Size limit_ previously selected**
 ```
