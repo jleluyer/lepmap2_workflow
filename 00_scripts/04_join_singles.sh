@@ -1,12 +1,16 @@
 #!/bin/bash
-#$ -N log_joinsingle
-#$ -M userID
-#$ -m beas
-#$ -pe smp 1
-#$ -l h_vmem=100G
-#$ -l h_rt=03:00:00
-#$ -cwd
-#$ -S /bin/bash
+
+#SBATCH -D ./ 
+#SBATCH --job-name="join"
+#SBATCH -o log-join.out
+#SBATCH -c 1
+#SBATCH -p ibismini
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=type_your_mail@ulaval.ca
+#SBATCH --time=0-20:00
+#SBATCH --mem=50000
+
+cd $SLURM_SUBMIT_DIR
 
 #usage: java JoinSingles chromosome_map_file [options] data=file1 [file2 file3...]
 
