@@ -1,6 +1,6 @@
 # Lep-MAP2 workflow
 
-lep-MAP2 workflow for building genetic linkage maps
+OLD.lep-MAP2 workflow for building genetic linkage maps
 
 ## Documentation
 
